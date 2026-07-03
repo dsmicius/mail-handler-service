@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: mail-handler-service
+
+server:
+  port: 8005
+  servlet:
+    context-path: /mail-handler
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+microsoft:
+  graph:
+    tenant-id: ${M365_TENANT_ID:}
+    client-id: ${M365_CLIENT_ID:}
+    client-secret: ${M365_CLIENT_SECRET:}
+    token-url: ${M365_TOKEN_URL:https://login.microsoftonline.com}
+    api-url: ${M365_GRAPH_API_URL:https://graph.microsoft.com/v1.0}
+    scope: ${M365_GRAPH_SCOPE:https://graph.microsoft.com/.default}
+
+mail-handler:
+  poll:
+    enabled: ${MAIL_HANDLER_POLL_ENABLED:false}
+    fixed-delay-ms: ${MAIL_HANDLER_POLL_FIXED_DELAY_MS:60000}
+    max-messages: ${MAIL_HANDLER_POLL_MAX_MESSAGES:10}
+    mark-as-read-after-success: ${MAIL_HANDLER_MARK_AS_READ_AFTER_SUCCESS:true}
+
+  mailboxes:
+    claims:
+      enabled: ${MAIL_HANDLER_CLAIMS_ENABLED:true}
+      provider-key: ${MAIL_HANDLER_CLAIMS_PROVIDER_KEY:microsoft-graph-claims}
+      mailbox: ${MAIL_HANDLER_CLAIMS_MAILBOX:claims@sbahome.lt}
+      folder: ${MAIL_HANDLER_CLAIMS_FOLDER:Inbox}
+      target-url: ${COMPLAINTS_INBOUND_URL:http://localhost:8003/complaints/api/email-inbound/process}
