@@ -47,3 +47,21 @@ MAIL_HANDLER_POLL_MAX_MESSAGES=10
 ## Microsoft Graph application permissions
 
 The app registration used by this service needs application permissions for reading messages. If messages should be marked as read, it also needs Mail.ReadWrite.
+
+### Complaints-service target and API key
+
+`mail-handler-service` calls `complaints-service` through the same internal API key mechanism used by other services.
+
+```text
+COMPLAINTS_SERVICE_BASE_URL=http://complaints-service:8003/complaints
+COMPLAINTS_INBOUND_PROCESS_PATH=/api/email-inbound/process
+X_API_KEY=<same-internal-api-key-as-complaints-service-expects>
+```
+
+For backward compatibility a mailbox may still override the full endpoint with:
+
+```text
+COMPLAINTS_INBOUND_URL=http://complaints-service:8003/complaints/api/email-inbound/process
+```
+
+If `COMPLAINTS_INBOUND_URL` is empty, the endpoint is built from `COMPLAINTS_SERVICE_BASE_URL + COMPLAINTS_INBOUND_PROCESS_PATH`.

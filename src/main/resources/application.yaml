@@ -22,6 +22,11 @@ microsoft:
     api-url: ${M365_GRAPH_API_URL:https://graph.microsoft.com/v1.0}
     scope: ${M365_GRAPH_SCOPE:https://graph.microsoft.com/.default}
 
+complaints-service:
+  base-url: ${COMPLAINTS_SERVICE_BASE_URL:http://complaints-service:8003/complaints}
+  x-api-key: ${X_API_KEY:}
+  inbound-process-path: ${COMPLAINTS_INBOUND_PROCESS_PATH:/api/email-inbound/process}
+
 mail-handler:
   poll:
     enabled: ${MAIL_HANDLER_POLL_ENABLED:false}
@@ -35,4 +40,4 @@ mail-handler:
       provider-key: ${MAIL_HANDLER_CLAIMS_PROVIDER_KEY:microsoft-graph-claims}
       mailbox: ${MAIL_HANDLER_CLAIMS_MAILBOX:claims@sbahome.lt}
       folder: ${MAIL_HANDLER_CLAIMS_FOLDER:Inbox}
-      target-url: ${COMPLAINTS_INBOUND_URL:http://localhost:8003/complaints/api/email-inbound/process}
+      target-url: ${COMPLAINTS_INBOUND_URL:}

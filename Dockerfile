@@ -26,5 +26,5 @@ COPY --from=build /app/build/libs/*.jar /app/app.jar
 # HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
 #   CMD wget -qO- http://localhost:8080/actuator/health | grep '"status":"UP"' || exit 1
 
-EXPOSE 8003
+EXPOSE 8005
 ENTRYPOINT ["java","-jar","/app/app.jar"]

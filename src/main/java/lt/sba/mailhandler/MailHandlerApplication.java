@@ -9,10 +9,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@EnableConfigurationProperties({GraphProperties.class, MailHandlerProperties.class})
 public class MailHandlerApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(MailHandlerApplication.class, args);
-    }
+    public static void main(String[] args) {SpringApplication.run(MailHandlerApplication.class, args);}
+
 }
