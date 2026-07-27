@@ -11,5 +11,7 @@ public interface GraphMailboxClient {
 
     List<GraphAttachmentDto> listAttachments(MailHandlerProperties.Mailbox mailbox, String messageId);
 
+    byte[] getAttachmentContent(MailHandlerProperties.Mailbox mailbox, String messageId, String attachmentId);
+
     void markAsRead(MailHandlerProperties.Mailbox mailbox, String messageId);
 }

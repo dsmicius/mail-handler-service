@@ -70,15 +70,36 @@ public class MicrosoftGraphMailboxClient implements GraphMailboxClient {
         GraphAttachmentListResponse response = graphClient()
                 .get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/users/{mailbox}/messages/{messageId}/attachments")
+                        .path("/users/{mailbox}/mailFolders/{folder}/messages/{messageId}/attachments")
                         .queryParam("$select", "id,name,contentType,size,isInline")
-                        .build(mailbox.getMailbox(), messageId))
+                        .build(mailbox.getMailbox(), mailbox.getFolder(), messageId))
                 .header(HttpHeaders.AUTHORIZATION, bearer())
                 .retrieve()
                 .bodyToMono(GraphAttachmentListResponse.class)
                 .block();
 
         return response == null || response.value() == null ? List.of() : response.value();
+    }
+
+    @Override
+    public byte[] getAttachmentContent(MailHandlerProperties.Mailbox mailbox, String messageId, String attachmentId) {
+        if (!StringUtils.hasText(messageId) || !StringUtils.hasText(attachmentId)) {
+            return new byte[0];
+        }
+
+        byte[] content = graphClient()
+                .get()
+                .uri("/users/{mailbox}/mailFolders/{folder}/messages/{messageId}/attachments/{attachmentId}/$value",
+                        mailbox.getMailbox(),
+                        mailbox.getFolder(),
+                        messageId,
+                        attachmentId)
+                .header(HttpHeaders.AUTHORIZATION, bearer())
+                .retrieve()
+                .bodyToMono(byte[].class)
+                .block();
+
+        return content == null ? new byte[0] : content;
     }
 
     @Override

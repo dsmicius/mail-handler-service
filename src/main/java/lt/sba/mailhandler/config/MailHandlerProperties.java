@@ -11,6 +11,8 @@ import java.util.Map;
 @Component
 @ConfigurationProperties(prefix = "mail-handler")
 public class MailHandlerProperties {
+    private String apiKey;
+    private String mailboxesJson;
     private Poll poll = new Poll();
     private Map<String, Mailbox> mailboxes = new LinkedHashMap<>();
 
@@ -20,10 +22,13 @@ public class MailHandlerProperties {
         private long fixedDelayMs = 60_000L;
         private int maxMessages = 10;
         private boolean markAsReadAfterSuccess = true;
+        private boolean fetchAttachmentContent = true;
+        private boolean failOnAttachmentContentError = true;
     }
 
     @Data
     public static class Mailbox {
+        private String key;
         private boolean enabled = true;
         private String providerKey;
         private String mailbox;

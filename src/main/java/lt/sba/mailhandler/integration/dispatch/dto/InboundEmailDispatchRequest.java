@@ -1,9 +1,9 @@
-package lt.sba.mailhandler.integration.complaints.dto;
+package lt.sba.mailhandler.integration.dispatch.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record ProcessInboundEmailRequest(
+public record InboundEmailDispatchRequest(
         String providerKey,
 
         String externalMessageId,
