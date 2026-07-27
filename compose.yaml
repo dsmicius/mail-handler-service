@@ -1,5 +1,5 @@
 services:
-  complaints-service:
+  mail-handler-service:
     build:
       context: .
       dockerfile: Dockerfile
